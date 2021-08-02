@@ -4,6 +4,36 @@ import types
 from collections import deque
 
 
+class QueueClosed(Exception):
+    pass
+
+
+class AsyncQueue:
+    def __init__(self, scheduler):
+        self.scheduler = scheduler
+        self.items = deque()
+        self.closed = False
+
+    def close(self):
+        self.closed = True
+
+    def put(self, item):
+        if self.closed:
+            raise QueueClosed
+
+        self.items.append(item)
+
+    @types.coroutine
+    def get(self):
+        while True:
+            if self.items:
+                return self.items.popleft()
+            if self.closed:
+                raise QueueClosed
+            self.scheduler.call_later(self.scheduler.ready.popleft(), 0)
+            yield
+
+
 class Scheduler:
     sequence = 0
 
@@ -23,13 +53,10 @@ class Scheduler:
         heapq.heappush(self.scheduled, (when, self.sequence, coro))
 
     @types.coroutine
-    def _sleep(self):
-        yield
-
-    async def sleep(self, delay):
+    def sleep(self, delay):
         when = time.monotonic() + delay
         self.call_at(self.ready.popleft(), when)
-        await self._sleep()
+        yield
 
     def run(self):
         while True:
@@ -46,7 +73,10 @@ class Scheduler:
                 try:
                     coro.send(None)
                 except StopIteration:
-                    self.ready.popleft()
+                    try:
+                        self.ready.popleft()
+                    except:
+                        pass
 
             if not self.scheduled and not self.ready:
                 return

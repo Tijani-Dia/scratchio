@@ -19,6 +19,8 @@ async def main():
     print("On main")
     scheduler.call_soon(first())
     scheduler.call_soon(second())
+    print("Main is about to sleep")
+    await scheduler.sleep(3)
     print("Quitting main")
 
 
