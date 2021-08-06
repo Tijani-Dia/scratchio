@@ -1,8 +1,5 @@
 from scratchio.scheduler import AsyncQueue, QueueClosed, Scheduler
 
-scheduler = Scheduler()
-queue = AsyncQueue(scheduler)
-
 
 async def producer(q, count):
     for i in range(count):
@@ -22,6 +19,8 @@ async def consumer(q):
         return
 
 
+queue = AsyncQueue()
+scheduler = Scheduler()
 scheduler.call_soon(producer(queue, 5))
 scheduler.call_soon(consumer(queue))
 scheduler.run()

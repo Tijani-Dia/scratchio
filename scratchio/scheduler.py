@@ -12,8 +12,7 @@ class QueueClosed(Exception):
 
 
 class AsyncQueue:
-    def __init__(self, scheduler):
-        self.scheduler = scheduler
+    def __init__(self):
         self.items = deque()
         self.closed = False
 
