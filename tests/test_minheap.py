@@ -1,6 +1,6 @@
 import random
 
-from scratchio.queues import MinHeap
+from scratchio.min_heap import MinHeap
 
 
 def check_invariant(heap):

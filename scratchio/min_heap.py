@@ -1,7 +1,4 @@
-from collections import deque, namedtuple
-
-PrioritizedItem = namedtuple("PrioritizedItem", ["priority", "sequence", "item"])
-
+from collections import deque
 
 class MinHeap:
     """
@@ -52,11 +49,7 @@ class MinHeap:
         new_item_pos = len(self.items) - 1
         parent_pos = (new_item_pos - 1) // 2
         while parent_pos >= 0 and self.items[new_item_pos] < self.items[parent_pos]:
-            self.items[new_item_pos], self.items[parent_pos] = (
-                self.items[parent_pos],
-                self.items[new_item_pos],
-            )
-
+            self.items[new_item_pos], self.items[parent_pos] = self.items[parent_pos], self.items[new_item_pos]
             new_item_pos = parent_pos
             parent_pos = (parent_pos - 1) // 2
 
@@ -74,49 +67,15 @@ class MinHeap:
         child_pos = 2 * last_item_pos + 1
         while child_pos < n:
             right_child_pos = child_pos + 1
-            if (
-                right_child_pos < n
-                and self.items[right_child_pos] < self.items[child_pos]
-            ):
+            if right_child_pos < n and self.items[right_child_pos] < self.items[child_pos]:
                 child_pos = right_child_pos
 
             if self.items[last_item_pos] <= self.items[child_pos]:
                 break
 
-            self.items[last_item_pos], self.items[child_pos] = (
-                self.items[child_pos],
-                self.items[last_item_pos],
-            )
+            self.items[last_item_pos], self.items[child_pos] = self.items[child_pos], self.items[last_item_pos]
 
             last_item_pos = child_pos
             child_pos = 2 * child_pos + 1
 
         return popped
-
-
-class PriorityQueue:
-    sequence = 0
-
-    def __init__(self):
-        self.items = MinHeap()
-
-    def is_empty(self):
-        """Checks whether the queue has no items."""
-
-        return self.items.is_empty()
-
-    def peek(self):
-        if not self.is_empty():
-            return self.items[0]
-
-    def insert_item_with_priority(self, item, priority):
-        """Adds an item to the queue with an associated priority."""
-
-        self.sequence += 1
-        self.items.push(PrioritizedItem(priority, self.sequence, item))
-
-    def pull_highest_pritority_item(self):
-        """Removes the item from the queue that has the highest priority, and returns it."""
-
-        hp_item = self.items.pop()
-        return hp_item.item
