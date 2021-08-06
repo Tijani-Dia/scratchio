@@ -8,7 +8,7 @@ async def producer(q, count):
     for i in range(count):
         print("Producing", i)
         q.put(i)
-        await scheduler.sleep(1)
+        await scheduler.sleep(0)
 
     q.close()
 
