@@ -22,6 +22,8 @@ class MinHeap:
     and the heap must be re-balanced by swapping elements within the array.
 
     Balancing a heap is done by sift-up or sift-down operations (swapping elements which are out of order).
+
+    Source: Wikipedia.
     """
 
     def __init__(self):
