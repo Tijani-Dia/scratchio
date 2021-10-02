@@ -1,7 +1,3 @@
-# Websocket server from scratch
+# Event loop from scratch
 
-The goal of this tutorial is to build a websocket server from scratch.
-
-We will also build our mini `asyncio` framework: `scratchio`.
-
-
+I started working on this mini `asyncio` framework: `scratchio` to uunderstand how an event loop works.
