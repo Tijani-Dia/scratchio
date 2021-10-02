@@ -1,7 +1,6 @@
 import pytest
 
-from scratchio.async_queue import AsyncQueue
-from scratchio.scheduler import Scheduler
+from scratchio import AsyncQueue, Scheduler
 
 
 @pytest.mark.asyncio

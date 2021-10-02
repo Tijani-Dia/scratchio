@@ -1,6 +1,6 @@
 import time
 
-from scratchio.scheduler import Scheduler
+from scratchio import Scheduler
 
 
 def test_run():
