@@ -1,5 +1,6 @@
 from collections import deque
 
+
 class MinHeap:
     """
     In computer science, a heap is a specialized tree-based data structure which is essentially a
@@ -49,7 +50,10 @@ class MinHeap:
         new_item_pos = len(self.items) - 1
         parent_pos = (new_item_pos - 1) // 2
         while parent_pos >= 0 and self.items[new_item_pos] < self.items[parent_pos]:
-            self.items[new_item_pos], self.items[parent_pos] = self.items[parent_pos], self.items[new_item_pos]
+            self.items[new_item_pos], self.items[parent_pos] = (
+                self.items[parent_pos],
+                self.items[new_item_pos],
+            )
             new_item_pos = parent_pos
             parent_pos = (parent_pos - 1) // 2
 
@@ -67,13 +71,19 @@ class MinHeap:
         child_pos = 2 * last_item_pos + 1
         while child_pos < n:
             right_child_pos = child_pos + 1
-            if right_child_pos < n and self.items[right_child_pos] < self.items[child_pos]:
+            if (
+                right_child_pos < n
+                and self.items[right_child_pos] < self.items[child_pos]
+            ):
                 child_pos = right_child_pos
 
             if self.items[last_item_pos] <= self.items[child_pos]:
                 break
 
-            self.items[last_item_pos], self.items[child_pos] = self.items[child_pos], self.items[last_item_pos]
+            self.items[last_item_pos], self.items[child_pos] = (
+                self.items[child_pos],
+                self.items[last_item_pos],
+            )
 
             last_item_pos = child_pos
             child_pos = 2 * child_pos + 1

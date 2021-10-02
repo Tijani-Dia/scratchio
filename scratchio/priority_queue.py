@@ -5,7 +5,6 @@ from .min_heap import MinHeap
 PrioritizedItem = namedtuple("PrioritizedItem", ["priority", "sequence", "item"])
 
 
-
 class PriorityQueue:
     sequence = 0
 

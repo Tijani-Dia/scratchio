@@ -1,4 +1,4 @@
-from scratchio.scheduler import AsyncQueue, QueueClosed, Scheduler
+from scratchio import AsyncQueue, QueueClosed, Scheduler
 
 
 async def producer(q, count):
